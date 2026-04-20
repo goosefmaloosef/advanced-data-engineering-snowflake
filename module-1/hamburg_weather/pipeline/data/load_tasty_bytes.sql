@@ -154,17 +154,15 @@ CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_header
 
 
 -- order_detail table build
-CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.order_detail
+CREATE OR ALTER TABLE {{env}}_tasty_bytes.raw_pos.country
 (
-   order_detail_id NUMBER(38,0),
-   order_id NUMBER(38,0),
-   menu_item_id NUMBER(38,0),
-   discount_id VARCHAR(16777216),
-   line_number NUMBER(38,0),
-   quantity NUMBER(5,0),
-   unit_price NUMBER(38,4),
-   price NUMBER(38,4),
-   order_item_discount_amount VARCHAR(16777216)
+   country_id NUMBER(18,0),
+   country VARCHAR(16777216),
+   iso_currency VARCHAR(3),
+   iso_country VARCHAR(2),
+   city VARCHAR(16777216),
+   city_population VARCHAR(16777216),
+   city_id NUMBER(19,0)
 );
 
 
@@ -293,17 +291,17 @@ USE WAREHOUSE demo_build_wh;
 
 
 -- country table load
--- COPY INTO {{env}}_tasty_bytes.raw_pos.country
--- (
---    country_id,
---    country,
---    iso_currency,
---    iso_country,
---    city_id,
---    city,
---    city_population
--- )
--- FROM @{{env}}_tasty_bytes.public.s3load/raw_pos/country/;
+COPY INTO {{env}}_tasty_bytes.raw_pos.country
+ (
+    country_id,
+    country,
+    iso_currency,
+    iso_country,
+    city_id,
+    city,
+    city_population
+ )
+ FROM @{{env}}_tasty_bytes.public.s3load/raw_pos/country/;
 
 
 -- franchise table load
